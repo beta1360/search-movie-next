@@ -1,0 +1,1 @@
+export type StyleTypes = 'primary' | 'secondary' | 'success' | 'warn' | 'error' | 'info'
