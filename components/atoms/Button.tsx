@@ -4,9 +4,13 @@ import { StyleTypes } from '@/types/styles'
 
 const buttonTypes = {
   primary: {
+    border: 0,
+    color: '#fff',
     backgroundColor: 'skyblue'
   },
   secondary: {
+    border: 0,
+    color: '#fff',
     backgroundColor: 'grey'
   },
   info: {
@@ -15,12 +19,18 @@ const buttonTypes = {
     border: 'grey 1px solid'
   },
   error: {
+    border: 0,
+    color: '#fff',
     backgroundColor: 'red'
   },
   warn: {
+    border: 0,
+    color: '#fff',
     backgroundColor: 'yellow'
   },
   success: {
+    border: 0,
+    color: '#fff',
     backgroundColor: 'green'
   }
 }
@@ -28,9 +38,6 @@ const buttonTypes = {
 const getButtonStyle = (type: StyleTypes)=> css({
   fontSize: '1.5rem',
   padding: '10px 20px',
-  border: 0,
-  color: '#fff',
-  backgroundColor: '#fff',
   borderRadius: '5px'
 }, buttonTypes[type])
 
