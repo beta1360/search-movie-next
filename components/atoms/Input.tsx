@@ -2,6 +2,10 @@ import { useState } from 'react'
 import { css } from '@emotion/react'
 import { useCallback } from 'react'
 
+const inputWrapperStyle = css({
+  border: 'skyblue 1px solid'
+})
+
 type InputProps = {
   defaultInput?: string,
   clearable?: boolean,
@@ -20,7 +24,7 @@ const BaseInput: React.FC<InputProps> = ({
   }, [])
 
   return (
-    <div>
+    <div css={inputWrapperStyle}>
       <input
         type="text"
         defaultValue={value}
