@@ -35,8 +35,8 @@ const buttonTypes = {
 }
 
 const getButtonStyle = (type: StyleTypes)=> css({
-  fontSize: '1.5rem',
-  padding: '10px 20px',
+  fontSize: '1.2rem',
+  padding: '8px 12px',
   borderRadius: '5px'
 }, buttonTypes[type])
 

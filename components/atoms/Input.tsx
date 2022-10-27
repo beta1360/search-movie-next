@@ -1,6 +1,5 @@
-import { useState } from 'react'
 import { css } from '@emotion/react'
-import { useCallback } from 'react'
+import { useState, useCallback } from 'react'
 
 const getInputWrapperStyle = (isFocus: boolean) => css`
   display: flex;
@@ -35,21 +34,25 @@ const buttonStyle = css`
 `
 
 type InputProps = {
-  defaultInput?: string,
+  defaultValue: string,
   clearable?: boolean,
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void
+  onChange: (value: string) => void
 }
 
 const BaseInput: React.FC<InputProps> = ({
-  defaultInput = '',
+  defaultValue = '',
   clearable = true,
   onChange
 }) => {
-  const [value, setValue] = useState(defaultInput)
+  const [inputValue, setInputValue] = useState(defaultValue)
   const [isFocus, setIsFocus] = useState(false)
 
-  const clearInput = useCallback(() => {
-    setValue('')
+  const clearInput = () => {
+    setInputValue('')
+  }
+
+  const clickClearButton = useCallback(() => {
+    clearInput()
   }, [])
 
   const onFocusInput = useCallback(() => {
@@ -60,20 +63,25 @@ const BaseInput: React.FC<InputProps> = ({
     setIsFocus(false)
   }, [])
 
+  const onChangeInputValue = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+    setInputValue(e.target.value)
+    onChange(inputValue)
+  }, [inputValue, onChange])
+
   return (
     <div css={getInputWrapperStyle(isFocus)}>
       <input
         type="text"
         css={inputStyle}
-        defaultValue={value}
-        onChange={onChange}
+        defaultValue={defaultValue}
+        onChange={onChangeInputValue}
         onFocus={onFocusInput}
         onBlur={onBlurInput}
       />
       { clearable &&
         <button
           css={buttonStyle}
-          onClick={clearInput}
+          onClick={clickClearButton}
         >x</button> }
     </div>
   )

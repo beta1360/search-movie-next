@@ -1,26 +1,10 @@
 import type { NextPage } from 'next'
-import Button from '@/components/atoms/Button'
-import Input from '@/components/atoms/Input'
-import { useCallback } from 'react'
+import Search from '@/components/shared/Search'
 
 const Home: NextPage = () => {
-  const handler = useCallback((): void => {
-    console.log('hello')
-  }, [])
-
-  const onChangeValue = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(e.target.value)
-  }, [])
-
   return (
     <div>
-      <Button
-        label="hello!"
-        onClick={handler}
-      />
-      <Input
-        defaultInput="hello"
-        onChange={onChangeValue}/>
+      <Search />
     </div>
   )
 }
