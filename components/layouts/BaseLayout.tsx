@@ -13,7 +13,7 @@ const containerStyle = css`
 const BaseLayout = ({ children }: { children: ReactElement }) => {
   const router = useRouter()
   const [keyword, setKeyword] = useState('')
-  const isMainPage = useMemo(() => !((router.query?.keyword || '').length > 0), [router.query.keyword])
+  const isMainPage = useMemo(() => router.pathname === '/', [router.pathname])
   const defaultKeyword = useMemo(() => (router.query?.keyword || '') as string, [router.query.keyword])
 
   const onChangeKeyword = useCallback((value: string) => {
