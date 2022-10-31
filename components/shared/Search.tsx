@@ -10,13 +10,15 @@ const searchStyle = css`
 `
 
 type SearchProps = {
-  defaultKeyword?: string,
+  defaultKeyword?: string
+  placeholder?: string
   onChange: (value: string) => void
   handleSubmit: (e: React.SyntheticEvent) => void
 }
 
 const Search: React.FC<SearchProps> = ({
   defaultKeyword = '',
+  placeholder = '',
   onChange,
   handleSubmit
 }) => {
@@ -26,6 +28,7 @@ const Search: React.FC<SearchProps> = ({
       onSubmit={handleSubmit}
     >
       <Input
+        placeholder={placeholder}
         defaultValue={defaultKeyword}
         onChange={onChange}
       />

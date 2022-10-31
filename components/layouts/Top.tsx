@@ -11,6 +11,7 @@ const topLayoutStyle = css`
   width: 100%;
   padding: 10px 15px;
   background-color: #fff;
+  border-bottom: 1px solid grey;
 `
 
 const titleStyle = css`
@@ -18,24 +19,33 @@ const titleStyle = css`
   color: skyblue;
   flex: 1 0 150px;
   margin: auto 20px auto;
+  cursor: pointer;
 `
 
 type TopLayoutProps = {
   isMainPage: boolean
+  placeholder?: string
+  goToMainPage: () => void
   onChange: (value: string) => void
   handleSubmit: (e: React.SyntheticEvent) => void
 }
 
 const TopLayout: React.FC<TopLayoutProps> = ({
   isMainPage,
+  placeholder = '검색어를 입력해주세요.',
+  goToMainPage,
   onChange,
   handleSubmit
 }) => {
   return (
     <header css={topLayoutStyle}>
-      <h2 css={titleStyle}>영화 검색 앱</h2>
+      <h2
+        css={titleStyle}
+        onClick={goToMainPage}  
+      >영화 검색 앱</h2>
       {!isMainPage &&
         <Search
+          placeholder={placeholder}
           onChange={onChange}
           handleSubmit={handleSubmit}
         />

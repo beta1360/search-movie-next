@@ -35,14 +35,16 @@ const buttonStyle = css`
 `
 
 type InputProps = {
-  defaultValue: string,
-  clearable?: boolean,
+  defaultValue: string
+  clearable?: boolean
+  placeholder?: string
   onChange: (value: string) => void
 }
 
 const BaseInput: React.FC<InputProps> = ({
   defaultValue = '',
   clearable = true,
+  placeholder = '',
   onChange
 }) => {
   const [inputValue, setInputValue] = useState(defaultValue)
@@ -79,6 +81,7 @@ const BaseInput: React.FC<InputProps> = ({
         onChange={onChangeInputValue}
         onFocus={onFocusInput}
         onBlur={onBlurInput}
+        placeholder={placeholder}
       />
       { clearable &&
         <button
