@@ -34,7 +34,6 @@ const Search: React.FC<SearchProps> = ({
       onSubmit={handleSubmit}
     >
       <Input
-        formName='keyword'
         defaultValue={defaultKeyword}
         onChange={onChange}
       />

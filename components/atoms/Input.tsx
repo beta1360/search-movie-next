@@ -36,14 +36,12 @@ const buttonStyle = css`
 type InputProps = {
   defaultValue: string,
   clearable?: boolean,
-  formName: string,
   onChange: (value: string) => void
 }
 
 const BaseInput: React.FC<InputProps> = ({
   defaultValue = '',
   clearable = true,
-  formName,
   onChange
 }) => {
   const [inputValue, setInputValue] = useState(defaultValue)
@@ -77,7 +75,6 @@ const BaseInput: React.FC<InputProps> = ({
       <input
         type="text"
         css={inputStyle}
-        name={formName}
         value={inputValue}
         onChange={onChangeInputValue}
         onFocus={onFocusInput}
