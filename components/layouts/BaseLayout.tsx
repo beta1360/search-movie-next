@@ -1,8 +1,9 @@
-import { ReactElement, useMemo } from 'react'
+import { ReactElement, useEffect, useMemo } from 'react'
 import { useState, useCallback } from 'react'
+import TopLayout from '@/components/layouts/Top'
+import Footer from '@/components/layouts/Footer'
+import AlertMessage from '@/components/shared/modals/Base/AlertMessage'
 import { useRouter } from 'next/router'
-import TopLayout from "@/components/layouts/Top"
-import Footer from "@/components/layouts/Footer"
 import { css } from '@emotion/react'
 
 const containerStyle = css`
@@ -13,6 +14,7 @@ const containerStyle = css`
 const BaseLayout = ({ children }: { children: ReactElement }) => {
   const router = useRouter()
   const [keyword, setKeyword] = useState('')
+  const [isShownAlertMessage, setIsShowAlertMessage] = useState(true)
   const isMainPage = useMemo(() => router.pathname === '/', [router.pathname])
   const defaultKeyword = useMemo(() => (router.query?.keyword || '') as string, [router.query.keyword])
 
@@ -29,6 +31,16 @@ const BaseLayout = ({ children }: { children: ReactElement }) => {
     router.push('/')
   }, [router])
 
+  const setTimeoutAlertMessage = async () => {
+    setTimeout(() => {
+      setIsShowAlertMessage(false)
+    }, 3000)
+  }
+
+  useEffect(() => {
+    isShownAlertMessage && setTimeoutAlertMessage()
+  }, [isShownAlertMessage])
+
   return (
     <>
       <TopLayout
@@ -42,6 +54,13 @@ const BaseLayout = ({ children }: { children: ReactElement }) => {
         { children }
       </div>
       <Footer />
+
+      { isShownAlertMessage &&
+        <AlertMessage
+          type="error"
+          message="테스트"
+        />
+      }
     </>
   )
 }
