@@ -18,10 +18,6 @@ const Search: React.FC<SearchProps> = ({
 }) => {
   const [keyword, setKeyword] = useState(defaultKeyword)
 
-  const search = useCallback((): void => {
-    console.log(keyword)
-  }, [keyword])
-
   const onChange = useCallback((value: string) => {
     console.log(value)
     setKeyword(value)
@@ -30,20 +26,21 @@ const Search: React.FC<SearchProps> = ({
   const handleSubmit = useCallback((e: React.SyntheticEvent) => {
     e.preventDefault()
     console.log('form', keyword)
-  }, [])
+  }, [keyword])
 
   return (
     <form
       css={searchStyle}
-      onSubmit={handleSubmit}  
+      onSubmit={handleSubmit}
     >
       <Input
+        formName='keyword'
         defaultValue={defaultKeyword}
         onChange={onChange}
       />
       <Button
         label="검색"
-        onClick={search}
+        isSubmit={true}
       />
     </form>
   )

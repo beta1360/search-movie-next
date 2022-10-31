@@ -36,12 +36,14 @@ const buttonStyle = css`
 type InputProps = {
   defaultValue: string,
   clearable?: boolean,
+  formName: string,
   onChange: (value: string) => void
 }
 
 const BaseInput: React.FC<InputProps> = ({
   defaultValue = '',
   clearable = true,
+  formName,
   onChange
 }) => {
   const [inputValue, setInputValue] = useState(defaultValue)
@@ -52,6 +54,7 @@ const BaseInput: React.FC<InputProps> = ({
   }
 
   const clickClearButton = useCallback(() => {
+    console.log('hello?')
     clearInput()
   }, [])
 
@@ -64,6 +67,7 @@ const BaseInput: React.FC<InputProps> = ({
   }, [])
 
   const onChangeInputValue = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+    e.preventDefault()
     setInputValue(e.target.value)
     onChange(inputValue)
   }, [inputValue, onChange])
@@ -73,7 +77,8 @@ const BaseInput: React.FC<InputProps> = ({
       <input
         type="text"
         css={inputStyle}
-        defaultValue={defaultValue}
+        name={formName}
+        value={inputValue}
         onChange={onChangeInputValue}
         onFocus={onFocusInput}
         onBlur={onBlurInput}
@@ -81,6 +86,7 @@ const BaseInput: React.FC<InputProps> = ({
       { clearable &&
         <button
           css={buttonStyle}
+          type="button"
           onClick={clickClearButton}
         >x</button> }
     </div>

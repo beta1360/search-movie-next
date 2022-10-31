@@ -43,17 +43,20 @@ const getButtonStyle = (type: StyleTypes)=> css({
 type ButtonProps = {
   label: string,
   type?: StyleTypes,
+  isSubmit?: Boolean,
   onClick?: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void
 }
 
 const BaseButton: React.FC<ButtonProps> = ({
   label,
   type = 'primary',
+  isSubmit = false,
   onClick
 }) => {
   return (
     <button
       css={getButtonStyle(type)}
+      type={isSubmit ? 'submit' : 'button'}
       onClick={onClick}
     >
       {label}
