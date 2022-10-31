@@ -1,4 +1,4 @@
-import { ReactElement } from 'react'
+import { ReactElement, useEffect, useLayoutEffect, useMemo } from 'react'
 import { useState, useCallback } from 'react'
 import { useRouter } from 'next/router'
 import TopLayout from "@/components/layouts/Top"
@@ -20,7 +20,6 @@ const BaseLayout = ({ children }: { children: ReactElement }) => {
 
   const searchMovies = useCallback((e: React.SyntheticEvent) => {
     e.preventDefault()
-    console.log(keyword)
     router.push({ pathname: '/search', query: { keyword } })
   }, [keyword, router])
 
@@ -32,6 +31,7 @@ const BaseLayout = ({ children }: { children: ReactElement }) => {
     <>
       <TopLayout
         isMainPage={false}
+        defaultKeyword={keyword}
         goToMainPage={goToMainPage}
         onChange={onChangeKeyword}
         handleSubmit={searchMovies}

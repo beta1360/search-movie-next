@@ -24,6 +24,7 @@ const titleStyle = css`
 
 type TopLayoutProps = {
   isMainPage: boolean
+  defaultKeyword?: string
   placeholder?: string
   goToMainPage: () => void
   onChange: (value: string) => void
@@ -32,6 +33,7 @@ type TopLayoutProps = {
 
 const TopLayout: React.FC<TopLayoutProps> = ({
   isMainPage,
+  defaultKeyword = '',
   placeholder = '검색어를 입력해주세요.',
   goToMainPage,
   onChange,
@@ -45,6 +47,7 @@ const TopLayout: React.FC<TopLayoutProps> = ({
       >영화 검색 앱</h2>
       {!isMainPage &&
         <Search
+          defaultKeyword={defaultKeyword}
           placeholder={placeholder}
           onChange={onChange}
           handleSubmit={handleSubmit}

@@ -56,7 +56,8 @@ const BaseInput: React.FC<InputProps> = ({
 
   const clickClearButton = useCallback(() => {
     clearInput()
-  }, [])
+    onChange('')
+  }, [onChange])
 
   const onFocusInput = useCallback(() => {
     setIsFocus(true)
