@@ -3,6 +3,12 @@ import { useState, useCallback } from 'react'
 import { useRouter } from 'next/router'
 import TopLayout from "@/components/layouts/Top"
 import Footer from "@/components/layouts/Footer"
+import { css } from '@emotion/react'
+
+const containerStyle = css`
+  padding: 40px auto 60px;
+  flex: 1 1 auto;
+`
 
 const BaseLayout = ({ children }: { children: ReactElement }) => {
   const router = useRouter()
@@ -30,7 +36,9 @@ const BaseLayout = ({ children }: { children: ReactElement }) => {
         onChange={onChangeKeyword}
         handleSubmit={searchMovies}
       />
-      { children }
+      <div css={containerStyle}>
+        { children }
+      </div>
       <Footer />
     </>
   )

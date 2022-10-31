@@ -5,12 +5,12 @@ const footerLayoutStyle = css`
   left: 0;
   display: flex;
   flex-direction: row-reverse;
-  position: fixed;
+  position: sticky;
   z-index: 0;
   width: 100%;
   padding: 10px 15px;
   background-color: #fff;
-  border-bottom: 1px solid grey;
+  border-top: 1px solid grey;
 `
 
 const infoStyle = css`
