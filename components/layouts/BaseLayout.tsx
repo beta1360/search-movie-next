@@ -2,7 +2,7 @@ import { ReactElement, useEffect, useMemo } from 'react'
 import { useState, useCallback } from 'react'
 import TopLayout from '@/components/layouts/Top'
 import Footer from '@/components/layouts/Footer'
-import AlertMessage from '@/components/shared/modals/Base/AlertMessage'
+import AlertMessage, { AlertMessageTypes } from '@/components/shared/modals/Base/AlertMessage'
 import { useRouter } from 'next/router'
 import { css } from '@emotion/react'
 
@@ -11,10 +11,18 @@ const containerStyle = css`
   flex: 1 1 auto;
 `
 
+let timer: any = null
+
+type AlertMessageObj = {
+  type: AlertMessageTypes
+  message: string
+}
+
 const BaseLayout = ({ children }: { children: ReactElement }) => {
   const router = useRouter()
   const [keyword, setKeyword] = useState('')
   const [isShownAlertMessage, setIsShowAlertMessage] = useState(true)
+  const [alertObj, setAlertObj] = useState<AlertMessageObj>({ type: 'info', message: 'test' })
   const isMainPage = useMemo(() => router.pathname === '/', [router.pathname])
   const defaultKeyword = useMemo(() => (router.query?.keyword || '') as string, [router.query.keyword])
 
@@ -24,6 +32,9 @@ const BaseLayout = ({ children }: { children: ReactElement }) => {
 
   const searchMovies = useCallback((e: React.SyntheticEvent) => {
     e.preventDefault()
+    if (!keyword) {
+      return
+    }
     router.push({ pathname: '/search', query: { keyword } })
   }, [keyword, router])
 
@@ -32,13 +43,20 @@ const BaseLayout = ({ children }: { children: ReactElement }) => {
   }, [router])
 
   const setTimeoutAlertMessage = async () => {
-    setTimeout(() => {
+    timer = setTimeout(() => {
       setIsShowAlertMessage(false)
     }, 3000)
   }
 
+  const closeAlertMessage = useCallback(() => {
+    clearTimeout(timer)
+    setIsShowAlertMessage(false)
+  }, [])
+
   useEffect(() => {
-    isShownAlertMessage && setTimeoutAlertMessage()
+    if (isShownAlertMessage) {
+      setTimeoutAlertMessage()
+    }
   }, [isShownAlertMessage])
 
   return (
@@ -57,8 +75,9 @@ const BaseLayout = ({ children }: { children: ReactElement }) => {
 
       { isShownAlertMessage &&
         <AlertMessage
-          type="error"
-          message="테스트"
+          type={alertObj.type}
+          message={alertObj.message}
+          close={closeAlertMessage}
         />
       }
     </>

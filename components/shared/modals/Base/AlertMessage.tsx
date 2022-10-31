@@ -1,6 +1,6 @@
 import { css } from '@emotion/react'
 
-type AlertMessageTypes = 'info' | 'success' | 'warning' | 'error' | 'primary'
+export type AlertMessageTypes = 'info' | 'success' | 'warning' | 'error' | 'primary'
 
 const alertMessageType = {
   info: {
@@ -36,6 +36,7 @@ const alertMessageStyle = css`
   transform: translateX(50%);
   max-width: 400px;
   min-width: 250px;
+  height: 60px;
   width: 100%;
   border-width: 1px;
   border-style: solid;
@@ -61,17 +62,20 @@ const getAlertMessageTypeStyle = (type: AlertMessageTypes) => css({ ...alertMess
 type AlertMessageProps = {
   type: AlertMessageTypes
   message: string
+  close: () => void
 }
 
 const AlertMessage: React.FC<AlertMessageProps> = ({
   type,
-  message
+  message,
+  close
 }) => {
   return (
     <div css={[getAlertMessageTypeStyle(type), alertMessageStyle]}>
       <p>{ message }</p>
       <button
         css={[closeButtonStyle, css({ color: alertMessageType[type].color })]}
+        onClick={close}
       >x</button>
     </div>
   )
