@@ -1,7 +1,7 @@
 import Button from '@/components/atoms/Button'
 import Input from '@/components/atoms/Input'
 import { css } from '@emotion/react'
-import React, { useState, useCallback } from 'react'
+import React from 'react'
 
 const searchStyle = css`
   display: flex;
@@ -10,24 +10,16 @@ const searchStyle = css`
 `
 
 type SearchProps = {
-  defaultKeyword?: string
+  defaultKeyword?: string,
+  onChange: (value: string) => void
+  handleSubmit: (e: React.SyntheticEvent) => void
 }
 
 const Search: React.FC<SearchProps> = ({
-  defaultKeyword = ''
+  defaultKeyword = '',
+  onChange,
+  handleSubmit
 }) => {
-  const [keyword, setKeyword] = useState(defaultKeyword)
-
-  const onChange = useCallback((value: string) => {
-    console.log(value)
-    setKeyword(value)
-  }, [])
-
-  const handleSubmit = useCallback((e: React.SyntheticEvent) => {
-    e.preventDefault()
-    console.log('form', keyword)
-  }, [keyword])
-
   return (
     <form
       css={searchStyle}

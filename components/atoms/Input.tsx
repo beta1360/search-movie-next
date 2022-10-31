@@ -53,7 +53,6 @@ const BaseInput: React.FC<InputProps> = ({
   }
 
   const clickClearButton = useCallback(() => {
-    console.log('hello?')
     clearInput()
   }, [])
 
