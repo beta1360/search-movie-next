@@ -1,9 +1,12 @@
 import type { NextPage } from 'next'
 import { useRouter } from 'next/router'
+import { useMemo } from 'react'
 
 const SearchPage: NextPage = () => {
   const router = useRouter()
-  const { keyword = '' } = router.query
+  const keyword = useMemo(() => (router.query?.keyword || '') as string, [router.query.keyword])
+
+  console.log(keyword)
 
   return (
     <div className="search-page__wrapper">

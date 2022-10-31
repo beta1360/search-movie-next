@@ -21,8 +21,8 @@ type AlertMessageObj = {
 const BaseLayout = ({ children }: { children: ReactElement }) => {
   const router = useRouter()
   const [keyword, setKeyword] = useState('')
-  const [isShownAlertMessage, setIsShowAlertMessage] = useState(true)
-  const [alertObj, setAlertObj] = useState<AlertMessageObj>({ type: 'info', message: 'test' })
+  const [isShownAlertMessage, setIsShowAlertMessage] = useState(false)
+  const [alertObj, setAlertObj] = useState<AlertMessageObj>({ type: 'info', message: '' })
   const isMainPage = useMemo(() => router.pathname === '/', [router.pathname])
   const defaultKeyword = useMemo(() => (router.query?.keyword || '') as string, [router.query.keyword])
 
@@ -32,7 +32,11 @@ const BaseLayout = ({ children }: { children: ReactElement }) => {
 
   const searchMovies = useCallback((e: React.SyntheticEvent) => {
     e.preventDefault()
-    if (!keyword) {
+    if (keyword.length === 0) {
+      openAlertMessage({
+        type: 'warning',
+        message: '키워드를 입력해주세요.'
+      })
       return
     }
     router.push({ pathname: '/search', query: { keyword } })
@@ -46,6 +50,11 @@ const BaseLayout = ({ children }: { children: ReactElement }) => {
     timer = setTimeout(() => {
       setIsShowAlertMessage(false)
     }, 3000)
+  }
+
+  const openAlertMessage = ({ type, message }: AlertMessageObj) => {
+    setAlertObj({ type, message })
+    setIsShowAlertMessage(true)
   }
 
   const closeAlertMessage = useCallback(() => {
