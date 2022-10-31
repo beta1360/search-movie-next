@@ -34,11 +34,15 @@ const buttonTypes = {
   }
 }
 
-const getButtonStyle = (type: StyleTypes)=> css({
-  fontSize: '1.2rem',
-  padding: '8px 12px',
-  borderRadius: '5px'
-}, buttonTypes[type])
+const buttonStyle = css`
+  font-size: 1.2rem;
+  padding: 8px 12px;
+  border-radius: 5px;
+  cursor: pointer;
+  &:hover {
+    opacity: 0.7;
+  }
+`
 
 type ButtonProps = {
   label: string,
@@ -55,7 +59,7 @@ const BaseButton: React.FC<ButtonProps> = ({
 }) => {
   return (
     <button
-      css={getButtonStyle(type)}
+      css={[buttonStyle, css({ ...buttonTypes[type]} )]}
       type={isSubmit ? 'submit' : 'button'}
       onClick={onClick}
     >

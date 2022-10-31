@@ -4,7 +4,7 @@ import { useState, useCallback } from 'react'
 const getInputWrapperStyle = (isFocus: boolean) => css`
   display: flex;
   align-items: center;
-  border: skyblue ${isFocus ? 2 : 1}px solid;
+  border: ${isFocus ? 'green' : 'skyblue'} 1px solid;
   width: max-content;
   padding: 5px 5px;
   border-radius: 5px;
