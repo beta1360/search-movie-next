@@ -6,13 +6,15 @@ import Footer from "@/components/layouts/Footer"
 import { css } from '@emotion/react'
 
 const containerStyle = css`
-  padding: 40px auto 60px;
+  padding: 40px 10px 60px;
   flex: 1 1 auto;
 `
 
 const BaseLayout = ({ children }: { children: ReactElement }) => {
   const router = useRouter()
   const [keyword, setKeyword] = useState('')
+  const isMainPage = useMemo(() => !((router.query?.keyword || '').length > 0), [router.query.keyword])
+  const defaultKeyword = useMemo(() => (router.query?.keyword || '') as string, [router.query.keyword])
 
   const onChangeKeyword = useCallback((value: string) => {
     setKeyword(value)
@@ -30,8 +32,8 @@ const BaseLayout = ({ children }: { children: ReactElement }) => {
   return (
     <>
       <TopLayout
-        isMainPage={false}
-        defaultKeyword={keyword}
+        isMainPage={isMainPage}
+        defaultKeyword={defaultKeyword}
         goToMainPage={goToMainPage}
         onChange={onChangeKeyword}
         handleSubmit={searchMovies}
