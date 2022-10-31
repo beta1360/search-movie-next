@@ -1,4 +1,4 @@
-import { ReactElement, useEffect, useLayoutEffect, useMemo } from 'react'
+import { ReactElement, useMemo } from 'react'
 import { useState, useCallback } from 'react'
 import { useRouter } from 'next/router'
 import TopLayout from "@/components/layouts/Top"

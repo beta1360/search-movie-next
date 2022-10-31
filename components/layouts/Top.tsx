@@ -12,6 +12,7 @@ const topLayoutStyle = css`
   padding: 10px 15px;
   background-color: #fff;
   border-bottom: 1px solid grey;
+  height: 64px;
 `
 
 const titleStyle = css`
