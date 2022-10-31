@@ -35,6 +35,7 @@ const buttonTypes = {
 }
 
 const buttonStyle = css`
+  flex: 1 0 100px;
   font-size: 1.2rem;
   padding: 8px 12px;
   border-radius: 5px;

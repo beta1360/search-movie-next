@@ -5,7 +5,7 @@ const getInputWrapperStyle = (isFocus: boolean) => css`
   display: flex;
   align-items: center;
   border: ${isFocus ? 'green' : 'skyblue'} 1px solid;
-  width: max-content;
+  width: 100%;
   padding: 5px 5px;
   border-radius: 5px;
   background-color: white;
@@ -17,6 +17,7 @@ const inputStyle = css`
   padding: 5px 5px;
   background-color: #fff;
   color: #222;
+  width: 100%;
   &:focus {
     outline: none;
   }

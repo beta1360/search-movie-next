@@ -8,7 +8,9 @@ function MyApp({ Component, pageProps }: AppProps) {
       <Head>
         <title>Marco Toyproject - search-movie-app</title>
       </Head>
-      <Component {...pageProps} />
+      <div className="app__wrapper">
+        <Component {...pageProps} />
+      </div>
     </>    
   )
 }

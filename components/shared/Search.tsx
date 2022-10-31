@@ -6,7 +6,7 @@ import React, { useState, useCallback } from 'react'
 const searchStyle = css`
   display: flex;
   flex-direction: row;
-  width: max-content;
+  width: 100%;
 `
 
 type SearchProps = {
