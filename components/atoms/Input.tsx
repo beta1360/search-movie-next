@@ -69,8 +69,8 @@ const BaseInput: React.FC<InputProps> = ({
   const onChangeInputValue = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault()
     setInputValue(e.target.value)
-    onChange(inputValue)
-  }, [inputValue, onChange])
+    onChange(e.target.value)
+  }, [onChange])
 
   return (
     <div css={getInputWrapperStyle(isFocus)}>
