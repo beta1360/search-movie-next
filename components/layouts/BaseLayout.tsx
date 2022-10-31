@@ -1,7 +1,8 @@
 import { ReactElement } from 'react'
 import { useState, useCallback } from 'react'
-import TopLayout from "@/components/layouts/Top"
 import { useRouter } from 'next/router'
+import TopLayout from "@/components/layouts/Top"
+import Footer from "@/components/layouts/Footer"
 
 const BaseLayout = ({ children }: { children: ReactElement }) => {
   const router = useRouter()
@@ -30,6 +31,7 @@ const BaseLayout = ({ children }: { children: ReactElement }) => {
         handleSubmit={searchMovies}
       />
       { children }
+      <Footer />
     </>
   )
 }
