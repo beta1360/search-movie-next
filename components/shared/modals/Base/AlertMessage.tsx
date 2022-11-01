@@ -40,7 +40,6 @@ const alertMessageStyle = css`
   width: 100%;
   border-width: 1px;
   border-style: solid;
-  opacity: 0.85;
   border-radius: 5px;
   padding: 0 15px;
   display: flex;
