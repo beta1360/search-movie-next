@@ -78,7 +78,7 @@ const BaseInput: React.FC<InputProps> = ({
       <input
         type="text"
         css={inputStyle}
-        value={inputValue}
+        defaultValue={defaultValue}
         onChange={onChangeInputValue}
         onFocus={onFocusInput}
         onBlur={onBlurInput}
