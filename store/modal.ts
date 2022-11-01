@@ -10,7 +10,7 @@ type AlertModalContext = {
 }
 
 export const alertMessageContextAtom = atom<AlertModalContext>({
-  key: 'alertMessageContextAtom',
+  key: 'atom/alertMessageContext',
   default: {
     shown: false,
     data: {

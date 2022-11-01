@@ -1,5 +1,5 @@
 import { css } from '@emotion/react'
-import { useState, useCallback } from 'react'
+import { useState, useCallback, useEffect } from 'react'
 
 const getInputWrapperStyle = (isFocus: boolean) => css`
   display: flex;
@@ -73,12 +73,16 @@ const BaseInput: React.FC<InputProps> = ({
     onChange(e.target.value)
   }, [onChange])
 
+  useEffect(() => {
+    setInputValue(defaultValue)
+  }, [defaultValue])
+
   return (
     <div css={getInputWrapperStyle(isFocus)}>
       <input
         type="text"
         css={inputStyle}
-        defaultValue={defaultValue}
+        value={inputValue}
         onChange={onChangeInputValue}
         onFocus={onFocusInput}
         onBlur={onBlurInput}
