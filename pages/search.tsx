@@ -6,8 +6,6 @@ const SearchPage: NextPage = () => {
   const router = useRouter()
   const keyword = useMemo(() => (router.query?.keyword || '') as string, [router.query.keyword])
 
-  console.log(keyword)
-
   return (
     <div className="search-page__wrapper">
       { keyword }
