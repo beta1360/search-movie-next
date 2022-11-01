@@ -1,6 +1,7 @@
 import '@/styles/globals.css'
 import type { AppProps } from 'next/app'
 import Head from 'next/head'
+import { RecoilRoot } from 'recoil'
 import BaseLayout from '@/components/layouts/BaseLayout'
 
 function MyApp({ Component, pageProps }: AppProps) {
@@ -10,9 +11,11 @@ function MyApp({ Component, pageProps }: AppProps) {
         <title>Marco Toyproject - search-movie-app</title>
       </Head>
       <div className="app__wrapper">
-        <BaseLayout>
-          <Component {...pageProps} />
-        </BaseLayout>
+        <RecoilRoot>
+          <BaseLayout>
+            <Component {...pageProps} />
+          </BaseLayout>
+        </RecoilRoot>
       </div>
     </>    
   )

@@ -1,6 +1,5 @@
 import { css } from '@emotion/react'
-
-export type AlertMessageTypes = 'info' | 'success' | 'warning' | 'error' | 'primary'
+import { AlertMessageTypes } from '@/types/styles'
 
 const alertMessageType = {
   info: {

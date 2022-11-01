@@ -1,10 +1,14 @@
 import { ReactElement, useEffect, useMemo } from 'react'
 import { useState, useCallback } from 'react'
-import TopLayout from '@/components/layouts/Top'
-import Footer from '@/components/layouts/Footer'
-import AlertMessage, { AlertMessageTypes } from '@/components/shared/modals/Base/AlertMessage'
 import { useRouter } from 'next/router'
 import { css } from '@emotion/react'
+import { useRecoilValue } from 'recoil'
+import TopLayout from '@/components/layouts/Top'
+import Footer from '@/components/layouts/Footer'
+import AlertMessage from '@/components/shared/modals/Base/AlertMessage'
+import { AlertMessageTypes } from '@/types/styles'
+import { alertMessageContextAtom } from '@/store/modal'
+import { useAlertMessage } from '@/hooks/alert-message'
 
 const containerStyle = css`
   padding: 40px 10px 60px;
@@ -21,8 +25,8 @@ type AlertMessageObj = {
 const BaseLayout = ({ children }: { children: ReactElement }) => {
   const router = useRouter()
   const [keyword, setKeyword] = useState('')
-  const [isShownAlertMessage, setIsShowAlertMessage] = useState(false)
-  const [alertObj, setAlertObj] = useState<AlertMessageObj>({ type: 'info', message: '' })
+  const alertMessageContext = useRecoilValue(alertMessageContextAtom)
+  const { openAlertMessage, closeAlertMessage } = useAlertMessage()
   const isMainPage = useMemo(() => router.pathname === '/', [router.pathname])
   const defaultKeyword = useMemo(() => (router.query?.keyword || '') as string, [router.query.keyword])
 
@@ -40,7 +44,7 @@ const BaseLayout = ({ children }: { children: ReactElement }) => {
       return
     }
     router.push({ pathname: '/search', query: { keyword } })
-  }, [keyword, router])
+  }, [keyword, router, openAlertMessage])
 
   const goToMainPage = useCallback(() => {
     if (isMainPage) {
@@ -50,27 +54,9 @@ const BaseLayout = ({ children }: { children: ReactElement }) => {
     }
   }, [isMainPage, router])
 
-  const setTimeoutAlertMessage = async () => {
-    timer = setTimeout(() => {
-      setIsShowAlertMessage(false)
-    }, 3000)
-  }
-
-  const openAlertMessage = ({ type, message }: AlertMessageObj) => {
-    setAlertObj({ type, message })
-    setIsShowAlertMessage(true)
-  }
-
-  const closeAlertMessage = useCallback(() => {
-    clearTimeout(timer)
-    setIsShowAlertMessage(false)
-  }, [])
-
-  useEffect(() => {
-    if (isShownAlertMessage) {
-      setTimeoutAlertMessage()
-    }
-  }, [isShownAlertMessage])
+  const closeAlertMessageByButton = useCallback(() => {
+    closeAlertMessage()
+  }, [closeAlertMessage])
 
   return (
     <>
@@ -86,11 +72,11 @@ const BaseLayout = ({ children }: { children: ReactElement }) => {
       </div>
       <Footer />
 
-      { isShownAlertMessage &&
+      { alertMessageContext.shown &&
         <AlertMessage
-          type={alertObj.type}
-          message={alertObj.message}
-          close={closeAlertMessage}
+          type={alertMessageContext.data.type}
+          message={alertMessageContext.data.message}
+          close={closeAlertMessageByButton}
         />
       }
     </>
