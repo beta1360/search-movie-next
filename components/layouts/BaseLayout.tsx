@@ -43,8 +43,12 @@ const BaseLayout = ({ children }: { children: ReactElement }) => {
   }, [keyword, router])
 
   const goToMainPage = useCallback(() => {
-    router.push('/')
-  }, [router])
+    if (isMainPage) {
+      router.reload()
+    } else {
+      router.push('/')
+    }
+  }, [isMainPage, router])
 
   const setTimeoutAlertMessage = async () => {
     timer = setTimeout(() => {
