@@ -1,42 +1,34 @@
 [
   {
-    "id": 0,
-    "code": "ALL",
+    "id": "ALL",
     "label": "전체"
   },
   {
-    "id": 1,
-    "code": "FR",
+    "id": "FR",
     "label": "프랑스"
   },
   {
-    "id": 2,
-    "code": "GB",
+    "id": "GB",
     "label": "영국"
   },
   {
-    "id": 3,
-    "code": "HK",
+    "id": "HK",
     "label": "홍콩"
   },
   {
-    "id": 4,
-    "code": "JP",
+    "id": "JP",
     "label": "일본"
   },
   {
-    "id": 5,
-    "code": "KR",
+    "id": "KR",
     "label": "한국"
   },
   {
-    "id": 6,
-    "code": "US",
+    "id": "US",
     "label": "미국"
   },
   {
-    "id": 7,
-    "code": "ETC",
+    "id": "ETC",
     "label": "기타"
   }
 ]

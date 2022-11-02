@@ -1,7 +1,6 @@
 export type CountryOptionType = {
   id: number | string,
-  label: string,
-  code: string
+  label: string
 }
 
 export type GenreOptionType = {
