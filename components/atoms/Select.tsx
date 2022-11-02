@@ -1,6 +1,7 @@
 import { OptionsType } from '@/types/data'
 import { css } from '@emotion/react'
 import React, { useCallback, useMemo } from 'react'
+import FormLabel from '@/components/atoms/FormLabel'
 
 const selectWrapperStyle = css`
   display: flex;
@@ -15,16 +16,6 @@ const selectStyle = css`
   border-radius: 5px;
   width: 150px;
 `
-
-const labelStyle = css`
-  font-size: 1.3rem;
-  margin-right: 8px;
-`
-
-const getLabel = (label: string, isRequired: boolean) => {
-  const requiredSymbol = <span css={css`color: red;`}>*</span>
-  return <p css={labelStyle}>{isRequired && requiredSymbol} {label}</p>
-}
 
 type SelectProps = {
   useLabel?: boolean
@@ -51,7 +42,12 @@ const BaseSelect: React.FC<SelectProps> = ({
 
   return (
     <div css={selectWrapperStyle}>
-      { useLabel && hasLabel && getLabel(label, isRequired)}
+      { useLabel && hasLabel && 
+        <FormLabel
+          isRequired={isRequired}
+          label={label}
+        />
+      }
       <select
         css={selectStyle}
         defaultValue={defaultValue}

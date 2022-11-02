@@ -4,12 +4,19 @@ import { useRouter } from 'next/router'
 import { css } from '@emotion/react'
 import { useAlertMessage } from '@/hooks/alert-message'
 import Search from '@/components/shared/Search'
-import Select from '@/components/atoms/Select'
+import { FormPropsType } from '@/types/form'
 import country from '@/data/country.json'
+import genre from '@/data/genre.json'
 
 const mainPageStyle = css`
   margin-top: 150px;
 `
+
+const searchExtensionFormProps: Array<FormPropsType> = [
+  { type: 'select', useLabel: true, label: '국가', isRequired: false, options: country },
+  { type: 'select', useLabel: true, label: '장르', isRequired: false, options: genre },
+  { type: 'date', useLabel: true, label: '제작 연도', isRequired: false }
+]
 
 const Home: NextPage = () => {
   const router = useRouter()
@@ -32,10 +39,6 @@ const Home: NextPage = () => {
     router.push({ pathname: '/search', query: { keyword } })
   }, [keyword, router, openAlertMessage])
 
-  const onChangeSelect = useCallback((value: string) => {
-    console.log(value)
-  }, [])
-
   return (
     <div
       className="main-page__wrapper"
@@ -45,6 +48,7 @@ const Home: NextPage = () => {
         useExtension={true}
         onChange={onChangeKeyword}
         handleSubmit={searchMovies}
+        extensionProp={searchExtensionFormProps}
       />
     </div>
   )
