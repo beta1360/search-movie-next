@@ -46,6 +46,8 @@ const Home: NextPage = () => {
         handleSubmit={searchMovies}
       />
       <Select
+        useLabel={true}
+        isRequired={true}
         options={country}
         label={'국가'}
         onChange={onChangeSelect}
