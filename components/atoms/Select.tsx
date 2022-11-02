@@ -2,6 +2,12 @@ import { OptionsType } from '@/types/data'
 import { css } from '@emotion/react'
 import React, { useCallback, useMemo } from 'react'
 
+const selectWrapperStyle = css`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+`
+
 const selectStyle = css`
   font-size: 1.2rem;
   padding: 10px;
@@ -11,8 +17,8 @@ const selectStyle = css`
 `
 
 const labelStyle = css`
-  font-size: 0.9rem;
-  margin-bottom: 2px;
+  font-size: 1.3rem;
+  margin-right: 8px;
 `
 
 const getLabel = (label: string, isRequired: boolean) => {
@@ -44,7 +50,7 @@ const BaseSelect: React.FC<SelectProps> = ({
   }, [onChange])
 
   return (
-    <div>
+    <div css={selectWrapperStyle}>
       { useLabel && hasLabel && getLabel(label, isRequired)}
       <select
         css={selectStyle}
