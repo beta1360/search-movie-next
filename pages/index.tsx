@@ -1,9 +1,11 @@
 import type { NextPage } from 'next'
 import { useState, useCallback } from 'react'
 import { useRouter } from 'next/router'
-import Search from '@/components/shared/Search'
 import { css } from '@emotion/react'
 import { useAlertMessage } from '@/hooks/alert-message'
+import Search from '@/components/shared/Search'
+import Select from '@/components/atoms/Select'
+import country from '@/data/country.json'
 
 const mainPageStyle = css`
   margin-top: 150px;
@@ -30,6 +32,10 @@ const Home: NextPage = () => {
     router.push({ pathname: '/search', query: { keyword } })
   }, [keyword, router, openAlertMessage])
 
+  const onChangeSelect = useCallback((value: string) => {
+    console.log(value)
+  }, [])
+
   return (
     <div
       className="main-page__wrapper"
@@ -38,6 +44,11 @@ const Home: NextPage = () => {
       <Search
         onChange={onChangeKeyword}
         handleSubmit={searchMovies}
+      />
+      <Select
+        options={country}
+        label={'국가'}
+        onChange={onChangeSelect}
       />
     </div>
   )
