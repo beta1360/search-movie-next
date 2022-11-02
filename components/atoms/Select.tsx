@@ -19,7 +19,10 @@ const BaseSelect: React.FC<SelectProps> = ({
   }, [onChange])
 
   return (
-    <select onChange={handleChange}>
+    <select
+      defaultValue={defaultValue}
+      onChange={handleChange}
+    >
       {
         options.map(option => (
           <option
