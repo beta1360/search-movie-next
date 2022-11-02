@@ -1,0 +1,30 @@
+[
+  {
+    "code": "FR",
+    "label": "프랑스"
+  },
+  {
+    "code": "GB",
+    "label": "영국"
+  },
+  {
+    "code": "HK",
+    "label": "홍콩"
+  },
+  {
+    "code": "JP",
+    "label": "일본"
+  },
+  {
+    "code": "KR",
+    "label": "한국"
+  },
+  {
+    "code": "US",
+    "label": "미국"
+  },
+  {
+    "code": "ETC",
+    "label": "기타"
+  }
+]
