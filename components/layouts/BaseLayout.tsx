@@ -6,7 +6,6 @@ import { useRecoilValue } from 'recoil'
 import TopLayout from '@/components/layouts/Top'
 import Footer from '@/components/layouts/Footer'
 import AlertMessage from '@/components/shared/modals/Base/AlertMessage'
-import { AlertMessageTypes } from '@/types/styles'
 import { alertMessageContextAtom } from '@/store/modal'
 import { useAlertMessage } from '@/hooks/alert-message'
 
@@ -14,13 +13,6 @@ const containerStyle = css`
   padding: 40px 10px 60px;
   flex: 1 1 auto;
 `
-
-let timer: any = null
-
-type AlertMessageObj = {
-  type: AlertMessageTypes
-  message: string
-}
 
 const BaseLayout = ({ children }: { children: ReactElement }) => {
   const router = useRouter()
