@@ -1,5 +1,6 @@
 import { css } from '@emotion/react'
-import { useState, useCallback, useEffect } from 'react'
+import { useState, useCallback, useEffect, useMemo } from 'react'
+import FormLabel from '@/components/atoms/FormLabel'
 
 const getInputWrapperStyle = (isFocus: boolean) => css`
   display: flex;
@@ -35,6 +36,9 @@ const buttonStyle = css`
 `
 
 type InputProps = {
+  useLabel?: boolean
+  label?: string
+  isRequired?: boolean
   defaultValue: string
   clearable?: boolean
   placeholder?: string
@@ -42,6 +46,9 @@ type InputProps = {
 }
 
 const BaseInput: React.FC<InputProps> = ({
+  useLabel = false,
+  label = '',
+  isRequired = false,
   defaultValue = '',
   clearable = true,
   placeholder = '',
@@ -49,6 +56,7 @@ const BaseInput: React.FC<InputProps> = ({
 }) => {
   const [inputValue, setInputValue] = useState(defaultValue)
   const [isFocus, setIsFocus] = useState(false)
+  const hasLabel = useMemo(() => label.length > 0, [label])
 
   const clearInput = () => {
     setInputValue('')
@@ -79,6 +87,12 @@ const BaseInput: React.FC<InputProps> = ({
 
   return (
     <div css={getInputWrapperStyle(isFocus)}>
+      { useLabel && hasLabel && 
+        <FormLabel
+          isRequired={isRequired}
+          label={label}
+        />
+      }
       <input
         type="text"
         css={inputStyle}
