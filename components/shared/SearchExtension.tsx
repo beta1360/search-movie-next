@@ -5,8 +5,6 @@ import Input from '@/components/atoms/Input'
 import Select from '@/components/atoms/Select'
 import Date from '@/components/atoms/Date'
 import { DatePropType, FormPropsType, InputPropType, SelectPropType } from '@/types/form'
-import country from '@/data/country.json'
-import genre from '@/data/genre.json'
 
 const expandButtonStyle = css`
   background-color: transparent;
@@ -53,14 +51,13 @@ const SearchExtension: React.FC<SearchExtensionProps> = ({
               if (item.type === 'input') {
                 const currentItem = item as InputPropType
                 return (
-                  <></>
-                  // <Input
-                  //   key={`${currentItem.type}-${currentItem.label}`}
-                  //   useLabel={currentItem.useLabel}
-                  //   isRequired={currentItem.isRequired}
-                  //   label={currentItem.label}
-                  //   onChange={() => {}}
-                  // />
+                  <Input
+                    key={`${currentItem.type}-${currentItem.label}`}
+                    useLabel={currentItem.useLabel}
+                    isRequired={currentItem.isRequired}
+                    label={currentItem.label}
+                    onChange={() => {}}
+                  />
                 )
               } else if (item.type === 'select') {
                 const currentItem = item as SelectPropType

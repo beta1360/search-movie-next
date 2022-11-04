@@ -39,7 +39,7 @@ type InputProps = {
   useLabel?: boolean
   label?: string
   isRequired?: boolean
-  defaultValue: string
+  defaultValue?: string
   clearable?: boolean
   placeholder?: string
   onChange: (value: string) => void
