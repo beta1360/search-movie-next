@@ -1,6 +1,7 @@
 import { css } from '@emotion/react'
 import FormLabel from '@/components/atoms/FormLabel'
 import Input from '@/components/atoms/Input'
+import { useMemo } from 'react'
 
 const dateWrapperStyle = css`
   display: flex;
@@ -37,20 +38,26 @@ const BaseDate: React.FC<DateProps> = ({
   onStartChange,
   onEndChange
 }) => {
+  const hasLabel = useMemo(() => label.length > 0, [label])
+
   return (
     <div css={dateWrapperStyle}>
-      <FormLabel
-        isRequired={isRequired}
-        label={label}
-      />
+      { useLabel && hasLabel && 
+        <FormLabel
+          isRequired={isRequired}
+          label={label}
+        />
+      }
       <div css={dateInputWrapper}>
         <Input
           defaultValue={defaultStart}
+          placeholder={startPlaceholder}
           onChange={() => {}}
         />
         &nbsp;&nbsp;~&nbsp;&nbsp;
         <Input
           defaultValue={defaultEnd}
+          placeholder={endPlaceholder}
           onChange={() => {}}
         />
       </div>
