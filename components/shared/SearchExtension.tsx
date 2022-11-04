@@ -6,6 +6,14 @@ import Select from '@/components/atoms/Select'
 import Date from '@/components/atoms/Date'
 import { DatePropType, FormPropsType, InputPropType, SelectPropType } from '@/types/form'
 
+const searchExtensionWrapperStyle = css`
+  padding: 10px 15px;
+  border: 1px dotted grey;
+  border-radius: 0 0 10px 10px;
+  border-top: none;
+  background-color: #eee;
+`
+
 const expandButtonStyle = css`
   background-color: transparent;
   width: 100%;
@@ -36,7 +44,7 @@ const SearchExtension: React.FC<SearchExtensionProps> = ({
   }, [isExpanded])
 
   return (
-    <section>
+    <section css={searchExtensionWrapperStyle}>
       <button
         type="button"
         css={expandButtonStyle}
