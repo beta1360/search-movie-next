@@ -28,8 +28,6 @@ const Search: React.FC<SearchProps> = ({
   onChange,
   handleSubmit
 }) => {
-  console.log('eb', extensionProp)
-
   return (
     <form onSubmit={handleSubmit}>
       <section
