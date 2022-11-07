@@ -1,14 +1,16 @@
 import type { NextPage } from 'next'
 import { useRouter } from 'next/router'
-import { useMemo } from 'react'
+import { useRecoilState } from 'recoil'
+import { searchParamsAtom } from '@/store/search'
 
 const SearchPage: NextPage = () => {
   const router = useRouter()
-  const keyword = useMemo(() => (router.query?.keyword || '') as string, [router.query.keyword])
+  const [searchParams, setSearchParams] = useRecoilState(searchParamsAtom)
 
   return (
     <div className="search-page__wrapper">
-      { keyword }
+      { searchParams.query }
+      { searchParams.country || '' }
     </div>
   )
 }

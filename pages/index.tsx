@@ -1,5 +1,6 @@
 import type { NextPage } from 'next'
-import { useState, useCallback, useEffect, useMemo } from 'react'
+import { useState, useCallback, useMemo } from 'react'
+import { useSetRecoilState } from 'recoil'
 import { useRouter } from 'next/router'
 import { css } from '@emotion/react'
 import { useAlertMessage } from '@/hooks/alert-message'
@@ -7,6 +8,7 @@ import Search from '@/components/shared/Search'
 import { FormPropsType } from '@/types/form'
 import countries from '@/data/country.json'
 import genres from '@/data/genre.json'
+import { searchParamsAtom } from '@/store/search'
 
 const mainPageStyle = css`
   margin-top: 150px;
@@ -20,12 +22,13 @@ const defaultExpanded = false
 
 const Home: NextPage = () => {
   const router = useRouter()
-  const [keyword, setKeyword] = useState('')
+  const [query, setQuery] = useState('')
   const [isExpanded, setIsExpanded] = useState(false)
   const [country, setCountry] = useState<string>(countries[0]?.id || '')
   const [genre, setGenre] = useState<number>(genres[0]?.id || 0)
   const [yearfrom, setYearfrom] = useState(defaultDate.start)
   const [yearto, setYearto] = useState(defaultDate.end)
+  const setSearchParams = useSetRecoilState(searchParamsAtom)
 
   const { openAlertMessage } = useAlertMessage()
 
@@ -38,27 +41,26 @@ const Home: NextPage = () => {
     })
   }), [country, genre, yearfrom, yearto, isExpanded])
 
-  const onChangeKeyword = useCallback((value: string) => {
-    setKeyword(value)
+  const onChangeQuery = useCallback((value: string) => {
+    setQuery(value)
   }, [])
 
   const searchMovies = useCallback((e: React.SyntheticEvent) => {
     e.preventDefault()
-    if (keyword.length === 0) {
+    if (query.length === 0) {
       openAlertMessage({
         type: 'warning',
         message: '키워드를 입력해주세요.'
       })
       return
     }
+    const searchParams = { query, ...expandedParams }
     router.push({
       pathname: '/search',
-      query: {
-        keyword,
-        ...expandedParams
-      }
+      query: searchParams
     })
-  }, [keyword, router, openAlertMessage, expandedParams])
+    setSearchParams(searchParams)
+  }, [query, router, openAlertMessage, expandedParams, setSearchParams])
 
   const onChangeCountry = useCallback((value: string) => {
     setCountry(value)
@@ -118,7 +120,7 @@ const Home: NextPage = () => {
         useExtension={true}
         expand={expand}
         defaultExpanded={defaultExpanded}
-        onChange={onChangeKeyword}
+        onChange={onChangeQuery}
         handleSubmit={searchMovies}
         extensionProp={searchExtensionFormProps}
       />

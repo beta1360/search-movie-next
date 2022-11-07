@@ -2,12 +2,13 @@ import { ReactElement, useEffect, useMemo } from 'react'
 import { useState, useCallback } from 'react'
 import { useRouter } from 'next/router'
 import { css } from '@emotion/react'
-import { useRecoilValue } from 'recoil'
+import { useRecoilValue, useRecoilState } from 'recoil'
 import TopLayout from '@/components/layouts/Top'
 import Footer from '@/components/layouts/Footer'
 import AlertMessage from '@/components/shared/modals/Base/AlertMessage'
 import { alertMessageContextAtom } from '@/store/modal'
 import { useAlertMessage } from '@/hooks/alert-message'
+import { searchParamsAtom } from '@/store/search'
 
 const containerStyle = css`
   padding: 40px 10px 60px;
@@ -18,9 +19,9 @@ const BaseLayout = ({ children }: { children: ReactElement }) => {
   const router = useRouter()
   const [keyword, setKeyword] = useState('')
   const alertMessageContext = useRecoilValue(alertMessageContextAtom)
+  const [searchParams, setSearchParams] = useRecoilState(searchParamsAtom)
   const { openAlertMessage, closeAlertMessage } = useAlertMessage()
   const isMainPage = useMemo(() => router.pathname === '/', [router.pathname])
-  const defaultKeyword = useMemo(() => (router.query?.keyword || '') as string, [router.query.keyword])
 
   const onChangeKeyword = useCallback((value: string) => {
     setKeyword(value)
@@ -54,7 +55,7 @@ const BaseLayout = ({ children }: { children: ReactElement }) => {
     <>
       <TopLayout
         isMainPage={isMainPage}
-        defaultKeyword={defaultKeyword}
+        defaultKeyword={searchParams.query}
         goToMainPage={goToMainPage}
         onChange={onChangeKeyword}
         handleSubmit={searchMovies}
