@@ -16,6 +16,7 @@ const defaultDate = {
   start: (new Date().getFullYear() - 2).toString() || '',
   end: (new Date().getFullYear()).toString() || ''
 }
+const defaultExpanded = false
 
 const Home: NextPage = () => {
   const router = useRouter()
@@ -25,8 +26,6 @@ const Home: NextPage = () => {
   const [genre, setGenre] = useState<number>(genres[0]?.id || 0)
   const [yearfrom, setYearfrom] = useState(defaultDate.start)
   const [yearto, setYearto] = useState(defaultDate.end)
-
-  const defaultExpanded = false
 
   const { openAlertMessage } = useAlertMessage()
 
