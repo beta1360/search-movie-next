@@ -17,27 +17,31 @@ const containerStyle = css`
 
 const BaseLayout = ({ children }: { children: ReactElement }) => {
   const router = useRouter()
-  const [keyword, setKeyword] = useState('')
+  const [query, setQuery] = useState('')
   const alertMessageContext = useRecoilValue(alertMessageContextAtom)
   const [searchParams, setSearchParams] = useRecoilState(searchParamsAtom)
   const { openAlertMessage, closeAlertMessage } = useAlertMessage()
   const isMainPage = useMemo(() => router.pathname === '/', [router.pathname])
+  const defaultQuery = useMemo(() =>
+    ((router.query.query || '') as string) || searchParams.query,
+    [router.query.query, searchParams]
+  )
 
-  const onChangeKeyword = useCallback((value: string) => {
-    setKeyword(value)
+  const onChangeQuery = useCallback((value: string) => {
+    setQuery(value)
   }, [])
 
   const searchMovies = useCallback((e: React.SyntheticEvent) => {
     e.preventDefault()
-    if (keyword.length === 0) {
+    if (query.length === 0) {
       openAlertMessage({
         type: 'warning',
         message: '키워드를 입력해주세요.'
       })
       return
     }
-    router.push({ pathname: '/search', query: { keyword } })
-  }, [keyword, router, openAlertMessage])
+    router.push({ pathname: '/search', query: { query } })
+  }, [query, router, openAlertMessage])
 
   const goToMainPage = useCallback(() => {
     if (isMainPage) {
@@ -55,9 +59,9 @@ const BaseLayout = ({ children }: { children: ReactElement }) => {
     <>
       <TopLayout
         isMainPage={isMainPage}
-        defaultKeyword={searchParams.query}
+        defaultKeyword={defaultQuery}
         goToMainPage={goToMainPage}
-        onChange={onChangeKeyword}
+        onChange={onChangeQuery}
         handleSubmit={searchMovies}
       />
       <div css={containerStyle}>
