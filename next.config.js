@@ -7,6 +7,14 @@ const nextConfig = {
   webpack: config => {
     config.plugins.push(new Dotenv({ silent: true }))
     return config
+  },
+  async rewrites() {
+    return [
+      {
+        source: '/api/:path*',
+        destination: 'https://openapi.naver.com/:path*'
+      },
+    ];
   }
 }
 
