@@ -1,5 +1,5 @@
 import type { NextPage } from 'next'
-import { useState, useCallback, useEffect } from 'react'
+import { useState, useCallback, useEffect, useMemo } from 'react'
 import { useRouter } from 'next/router'
 import { css } from '@emotion/react'
 import { useAlertMessage } from '@/hooks/alert-message'
@@ -12,18 +12,32 @@ const mainPageStyle = css`
   margin-top: 150px;
 `
 
+const defaultDate = {
+  start: (new Date().getFullYear() - 2).toString() || '',
+  end: (new Date().getFullYear()).toString() || ''
+}
+
 const Home: NextPage = () => {
   const router = useRouter()
   const [keyword, setKeyword] = useState('')
   const [isExpanded, setIsExpanded] = useState(false)
   const [country, setCountry] = useState<string>(countries[0]?.id || '')
   const [genre, setGenre] = useState<number>(genres[0]?.id || 0)
-  const [startDate, setStartDate] = useState((new Date().getFullYear() - 2).toString() || '')
-  const [endtDate, setEndDate] = useState((new Date().getFullYear()).toString() || '')
+  const [yearfrom, setYearfrom] = useState(defaultDate.start)
+  const [yearto, setYearto] = useState(defaultDate.end)
 
   const defaultExpanded = false
 
   const { openAlertMessage } = useAlertMessage()
+
+  const expandedParams = useMemo(() => ({
+    ...(isExpanded && {
+      country,
+      genre,
+      yearfrom,
+      yearto
+    })
+  }), [country, genre, yearfrom, yearto, isExpanded])
 
   const onChangeKeyword = useCallback((value: string) => {
     setKeyword(value)
@@ -41,10 +55,11 @@ const Home: NextPage = () => {
     router.push({
       pathname: '/search',
       query: {
-        keyword
+        keyword,
+        ...expandedParams
       }
     })
-  }, [keyword, router, openAlertMessage])
+  }, [keyword, router, openAlertMessage, expandedParams])
 
   const onChangeCountry = useCallback((value: string) => {
     setCountry(value)
@@ -55,11 +70,11 @@ const Home: NextPage = () => {
   }, [])
 
   const onChangeStartDate = useCallback((value: string) => {
-    setStartDate(value)
+    setYearfrom(value)
   }, [])
 
   const onChangeEndDate = useCallback((value: string) => {
-    setEndDate(value)
+    setYearto(value)
   }, [])
 
   const expand = useCallback((value: boolean) => {
@@ -67,9 +82,32 @@ const Home: NextPage = () => {
   }, [])
 
   const searchExtensionFormProps: Array<FormPropsType> = [
-    { type: 'select', useLabel: true, label: '국가', isRequired: false, options: countries, onChange: onChangeCountry },
-    { type: 'select', useLabel: true, label: '장르', isRequired: false, options: genres, onChange: onChangeGenre},
-    { type: 'date', useLabel: true, label: '제작 연도', isRequired: false, onChangeStart: onChangeStartDate, onChangeEnd: onChangeEndDate}
+    {
+      type: 'select',
+      useLabel: true,
+      label: '국가',
+      isRequired: false,
+      options: countries,
+      onChange: onChangeCountry
+    },
+    {
+      type: 'select',
+      useLabel: true,
+      label: '장르',
+      isRequired: false,
+      options: genres,
+      onChange: onChangeGenre
+    },
+    {
+      type: 'date',
+      useLabel: true,
+      label: '제작 연도',
+      isRequired: false,
+      onChangeStart: onChangeStartDate,
+      onChangeEnd: onChangeEndDate,
+      defaultStart: defaultDate.start,
+      defaultEnd: defaultDate.end
+    }
   ]
   
   return (
