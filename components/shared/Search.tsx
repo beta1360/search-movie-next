@@ -13,11 +13,13 @@ const baseSearchStyle = css`
 
 type SearchProps = {
   defaultKeyword?: string
-  placeholder?: string,
-  useExtension?: boolean,
+  placeholder?: string
+  useExtension?: boolean
+  defaultExpanded?: boolean
   extensionProp?: Array<FormPropsType>
   onChange: (value: string) => void
-  handleSubmit: (e: React.SyntheticEvent) => void
+  handleSubmit: (e: React.SyntheticEvent) => void,
+  expand?: (value: boolean) => void
 }
 
 const Search: React.FC<SearchProps> = ({
@@ -25,8 +27,10 @@ const Search: React.FC<SearchProps> = ({
   placeholder = '',
   useExtension = false,
   extensionProp = [],
+  defaultExpanded = false,
   onChange,
-  handleSubmit
+  handleSubmit,
+  expand = (value: boolean) => {}
 }) => {
   return (
     <form onSubmit={handleSubmit}>
@@ -46,6 +50,8 @@ const Search: React.FC<SearchProps> = ({
       { useExtension &&
         <SearchExtension
           prop={extensionProp}
+          defaultExpanded={defaultExpanded}
+          expand={expand}
         />
       }
     </form>

@@ -32,16 +32,21 @@ const expanedFormsLayoutStyle = css`
 
 type SearchExtensionProps = {
   prop: Array<FormPropsType>
+  defaultExpanded?: boolean
+  expand: (value: boolean) => void
 }
 
 const SearchExtension: React.FC<SearchExtensionProps> = ({
-  prop
+  prop,
+  defaultExpanded = false,
+  expand,
 }) => {
-  const [isExpanded, setIsExpanded] = useState(true)
+  const [isExpanded, setIsExpanded] = useState(defaultExpanded)
 
   const toggleDetailSearch = useCallback(() => {
     setIsExpanded(!isExpanded)
-  }, [isExpanded])
+    expand(!isExpanded)
+  }, [isExpanded, expand])
 
   return (
     <section css={isExpanded && searchExtensionWrapperStyle}>
@@ -64,7 +69,7 @@ const SearchExtension: React.FC<SearchExtensionProps> = ({
                     useLabel={currentItem.useLabel}
                     isRequired={currentItem.isRequired}
                     label={currentItem.label}
-                    onChange={() => {}}
+                    onChange={currentItem.onChange}
                   />
                 )
               } else if (item.type === 'select') {
@@ -76,21 +81,21 @@ const SearchExtension: React.FC<SearchExtensionProps> = ({
                     isRequired={currentItem.isRequired}
                     options={currentItem.options}
                     label={currentItem.label}
-                    onChange={() => {}}
+                    onChange={currentItem.onChange}
                   />
                 )
               } else if (item.type === 'date') {
                 const currentItem = item as DatePropType
                 return (
                   <Date
-                  key={`${currentItem.type}-${currentItem.label}`}
+                    key={`${currentItem.type}-${currentItem.label}`}
                     useLabel={currentItem.useLabel}
                     isRequired={currentItem.isRequired}
                     label={currentItem.label}
                     defaultStart={currentItem.defaultStart as string}
                     defaultEnd={currentItem.defaultEnd as string}
-                    onStartChange={() => {}}
-                    onEndChange={() => {}}
+                    onStartChange={currentItem.onChangeStart}
+                    onEndChange={currentItem.onChangeEnd}
                   />
                 )
               }
