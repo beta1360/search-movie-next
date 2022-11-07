@@ -31,7 +31,7 @@ const BaseLayout = ({ children }: { children: ReactElement }) => {
     setQuery(value)
   }, [])
 
-  const searchMovies = useCallback((e: React.SyntheticEvent) => {
+  const submitQueries = useCallback((e: React.SyntheticEvent) => {
     e.preventDefault()
     if (query.length === 0) {
       openAlertMessage({
@@ -62,7 +62,7 @@ const BaseLayout = ({ children }: { children: ReactElement }) => {
         defaultKeyword={defaultQuery}
         goToMainPage={goToMainPage}
         onChange={onChangeQuery}
-        handleSubmit={searchMovies}
+        handleSubmit={submitQueries}
       />
       <div css={containerStyle}>
         { children }

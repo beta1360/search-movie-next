@@ -45,7 +45,7 @@ const Home: NextPage = () => {
     setQuery(value)
   }, [])
 
-  const searchMovies = useCallback((e: React.SyntheticEvent) => {
+  const submitQueries = useCallback((e: React.SyntheticEvent) => {
     e.preventDefault()
     if (query.length === 0) {
       openAlertMessage({
@@ -121,7 +121,7 @@ const Home: NextPage = () => {
         expand={expand}
         defaultExpanded={defaultExpanded}
         onChange={onChangeQuery}
-        handleSubmit={searchMovies}
+        handleSubmit={submitQueries}
         extensionProp={searchExtensionFormProps}
       />
     </div>
