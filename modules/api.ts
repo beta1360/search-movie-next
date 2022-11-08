@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { SearchParams } from '@/types/api'
+import { SearchMovieResponse, SearchParams } from '@/types/api'
 
 const getBaseApi = () => {
   const request = axios.create({
@@ -8,10 +8,10 @@ const getBaseApi = () => {
   return request
 }
 
-const searchMovies = async (queries: SearchParams) => {
+const searchMovies = async (queries: SearchParams): Promise<SearchMovieResponse> => {
   const request = getBaseApi()
-  const data = await request({ url: '/api/movie', params: queries })
-  console.log(data)
+  const { data } = await request({ url: '/api/movie', params: queries })
+  return data
 }
 
 export default searchMovies

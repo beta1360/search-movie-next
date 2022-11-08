@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import axios from 'axios'
-import { SearchParams } from '@/types/api'
+import { SearchParams  } from '@/types/api'
 
 const getBaseApi = () => {
   const request = axios.create({
@@ -13,18 +13,23 @@ const getBaseApi = () => {
   return request
 }
 
-const searchMovies = (queries: SearchParams) => {
+const searchMovies = (queries: Partial<SearchParams>) => {
   const request = getBaseApi()
-  console.log(request)
   return request({ method: 'get', url: '/v1/search/movie', params: queries })
 }
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   const queries = req.query
   try {
-    const { data, status } = await searchMovies(queries as any)
+    const { data, status } = await searchMovies(queries)
     res.status(status).json(data)
   } catch(e) {
-    res.json({})
+    res.status(400).json({
+      display: 0,
+      items: [],
+      lasBuildDate: new Date(),
+      start: 1,
+      total: 0
+    })
   }
 }
