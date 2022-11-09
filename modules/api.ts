@@ -8,10 +8,9 @@ const getBaseApi = () => {
   return request
 }
 
-const searchMovies = async (queries: SearchParams): Promise<SearchMovieResponse> => {
+const searchMoviesApi = (queries: SearchParams): Promise<SearchMovieResponse> => {
   const request = getBaseApi()
-  const { data } = await request({ url: '/api/movie', params: queries })
-  return data
+  return request({ url: '/api/movie', params: queries })
 }
 
-export default searchMovies
+export default searchMoviesApi

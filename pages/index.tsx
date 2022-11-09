@@ -9,7 +9,6 @@ import { FormPropsType } from '@/types/form'
 import countries from '@/data/country.json'
 import genres from '@/data/genre.json'
 import { searchParamsAtom } from '@/store/search'
-import searchMovies from '@/modules/api'
 
 const mainPageStyle = css`
   margin-top: 150px;
@@ -56,12 +55,11 @@ const Home: NextPage = () => {
       return
     }
     const searchParams = { query, ...expandedParams }
+    setSearchParams(searchParams)
     router.push({
       pathname: '/search',
-      query: searchParams
+      query: { ...router.query, ...searchParams }
     })
-    setSearchParams(searchParams)
-    searchMovies(searchParams)
   }, [query, router, openAlertMessage, expandedParams, setSearchParams])
 
   const onChangeCountry = useCallback((value: string) => {
